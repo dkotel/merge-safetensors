@@ -11,11 +11,7 @@ Given a folder containing:
 - Split `.safetensors` files (e.g. `model-00001-of-00017.safetensors`, etc.)
 - The corresponding `model.safetensors.index.json` file (must be downloaded with the model)
 
-This tool merges everything into one file called:
-
-```
-model-merged.safetensors
-```
+This tool merges everything into one file with a name of your choosing (e.g. `llama8b.safetensors`), or defaults to model-merged.safetensors
 
 ---
 
@@ -24,7 +20,7 @@ model-merged.safetensors
 Python 3.8+  
 Install dependencies with:
 
-```bash
+```
 pip install safetensors numpy
 ```
 
@@ -40,7 +36,9 @@ pip install safetensors numpy
 merge-safetensors
 ```
 
-That’s it. It will show loading progress, then spin while saving.
+4. When prompted, enter a desired output filename (e.g. `llama8b`) or press **Enter** to use the default
+
+The `.safetensors` extension is automatically applied if not included.
 
 ---
 
