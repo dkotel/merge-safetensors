@@ -11,7 +11,7 @@ Given a folder containing:
 - Split `.safetensors` files (e.g. `model-00001-of-00017.safetensors`, etc.)
 - The corresponding `model.safetensors.index.json` file (must be downloaded with the model)
 
-This tool merges everything into one file with a name of your choosing (e.g. `llama8b.safetensors`), or defaults to model-merged.safetensors
+This tool merges everything into one file with a name of your choosing (e.g. `llama8b.safetensors`), or defaults to `model-merged.safetensors`
 
 ---
 
