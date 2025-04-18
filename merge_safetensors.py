@@ -1,4 +1,4 @@
-# merge_safetensors/cli.py
+# merge_safetensors.py
 
 import json
 import time
