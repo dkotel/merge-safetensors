@@ -234,19 +234,27 @@ def main():
     )
     args = parser.parse_args()
 
+    # --- Add Simple Title Banner ---
+    # Print the title *before* configuring/using logging for this specific output
+    print("======================================")
+    print("=        Merge Safetensors         =") # Updated Title
+    print("======================================")
+    print() # Add a blank line for spacing
+    # -------------------------------
+
     # --- Reconfigure logging if needed (verbose or file) ---
     log_level = logging.DEBUG if args.verbose else logging.INFO
     log_handlers = [logging.StreamHandler(sys.stdout)] # Default: console handler
 
     if args.log_file:
+        # Use direct print here as logging might not be ready for file handler yet
+        print(f"[INFO] Attempting to log also to file: {args.log_file}")
         try:
             file_handler = logging.FileHandler(args.log_file, mode='w') # Overwrite log file each run
             file_handler.setFormatter(logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S'))
             log_handlers.append(file_handler)
-            print(f"[INFO] Logging also to file: {args.log_file}") # Direct print before logging fully configured
         except Exception as e:
             print(f"[WARN] Could not open log file {args.log_file} for writing: {e}", file=sys.stderr)
-
 
     # Apply the new configuration
     logging.basicConfig(
@@ -259,8 +267,8 @@ def main():
     # --------------------------------------------------------
 
     start_time = time.perf_counter()
-    logging.info("Merge script started.")
-    logging.debug(f"Arguments received: {args}") # Log args only in verbose mode
+    logging.info("Merge script started.") # First log message will appear AFTER the title
+    logging.debug(f"Arguments received: {args}")
 
     # Resolve the index file path and its directory
     try:
