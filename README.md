@@ -1,7 +1,7 @@
 # merge-safetensors
 
-A simple command-line tool to merge split `.safetensors` model shards into a single `.safetensors` file.  
-Useful for Hugging Face models that distribute weights across multiple files (e.g. `model-00001-of-00017.safetensors`).
+A feature-rich command-line tool to merge split `.safetensors` model shards into a single `.safetensors` file.  
+Ideal for Hugging Face models that distribute weights across multiple files (e.g. `model-00001-of-00017.safetensors`).
 
 ---
 
@@ -11,7 +11,13 @@ Given a folder containing:
 - Split `.safetensors` files (e.g. `model-00001-of-00017.safetensors`, etc.)
 - The corresponding `model.safetensors.index.json` file (must be downloaded with the model)
 
-This tool merges everything into one file with a name of your choosing (e.g. `llama8b.safetensors`), or defaults to `model-merged.safetensors`
+This tool:
+- Loads and merges the tensors based on the index
+- Lets you name the output file or defaults to `model-merged.safetensors`
+- Displays a real-time spinner during save
+- Logs the process with timestamps and optional verbosity
+- Detects missing keys or shard mismatches
+- Accepts command-line arguments for scripting or automation
 
 ---
 
@@ -21,36 +27,42 @@ Python 3.8+
 Install dependencies with:
 
 ```
-pip install safetensors numpy
+pip install safetensors numpy colorama
 ```
 
 ---
 
 ## 🚀 How to Use
 
-1. Clone this repository or copy the script into the folder with your model shards
-2. Ensure the folder contains **all split `.safetensors` files** **and** the `model.safetensors.index.json`
-3. Run:
+Place the script or install the package in the same folder as your model shards. Then run:
 
 ```
-merge-safetensors
+python merge_safetensors.py
 ```
 
-4. When prompted, enter a desired output filename (e.g. `llama8b`) or press **Enter** to use the default
+Or, use argument flags:
 
-The `.safetensors` extension is automatically applied if not included.
+```
+python merge_safetensors.py path/to/model.safetensors.index.json -o llama8b.safetensors
+```
 
 ---
 
-## 📦 Installation (optional)
-
-To make it pip-installable:
+## 🔧 Command Line Options
 
 ```
-pip install .
+usage: merge_safetensors.py [index_file] [-o OUTPUT] [-v] [--log-file LOG_FILE]
+
+positional arguments:
+  index_file           Path to the index file (default: model.safetensors.index.json)
+
+options:
+  -o, --output         Output filename (.safetensors will be added if missing)
+  -v, --verbose        Enable detailed debug logging
+  --log-file           Path to write log output (in addition to console)
 ```
 
-Then you can run `merge-safetensors` from anywhere.
+If no output filename is provided, you’ll be prompted interactively.
 
 ---
 
@@ -62,7 +74,23 @@ my-model/
 ├── model-00001-of-00017.safetensors
 ├── ...
 ├── model-00017-of-00017.safetensors
-└── merge-safetensors (script or CLI)
+└── merge-safetensors.py
+```
+
+---
+
+## 📦 Optional: Install as a CLI Tool
+
+To make this script usable anywhere:
+
+```
+pip install .
+```
+
+Then you can simply run:
+
+```
+merge-safetensors
 ```
 
 ---
