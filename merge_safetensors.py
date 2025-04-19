@@ -237,7 +237,7 @@ def main():
     # --- Add Simple Title Banner ---
     # Print the title *before* configuring/using logging for this specific output
     print("======================================")
-    print("=        Merge Safetensors         =") # Updated Title
+    print("=        Merge Safetensors           =") # Updated Title
     print("======================================")
     print() # Add a blank line for spacing
     # -------------------------------
